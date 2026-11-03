@@ -84,7 +84,7 @@ class OllamaProvider:
         prefix = NOMIC_PREFIX[kind] if self.embedding_model.startswith("nomic-embed-text") else ""
         vectors: list[list[float]] = []
         for start in range(0, len(texts), self.max_batch_size):
-            batch = [prefix + t for t in texts[start : start + MAX_EMBED_BATCH]]
+            batch = [prefix + t for t in texts[start : start + self.max_batch_size]]
             try:
                 response = await self._client.post(
                     "/api/embed", json={"model": self.embedding_model, "input": batch, "keep_alive": self.keep_alive}
