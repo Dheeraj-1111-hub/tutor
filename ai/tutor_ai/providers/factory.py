@@ -21,5 +21,6 @@ def build_provider(settings: Settings) -> ModelProvider:
             dimensions=settings.embedding_dimensions,
             keep_alive=settings.ollama_keep_alive,
             timeout_seconds=settings.ollama_timeout_seconds,
+            connect_timeout=settings.ollama_connect_timeout,
         )
     raise ProviderNotConfigured("The hosted provider is chosen before real users (D23) and isn't implemented yet.")
