@@ -403,6 +403,7 @@ def test_optimization_settings_defaults_and_env_overrides():
         TUTOR_AI_SERVICE_TOKEN="a" * 32,
         TUTOR_AI_PROVIDER="mock",
     )
+    assert default_settings.ollama_max_batch_size == 32
     assert default_settings.ollama_connect_timeout == 15.0
     assert default_settings.query_cache_max_entries == 2000
     assert default_settings.db_pool_size == 10
@@ -413,11 +414,13 @@ def test_optimization_settings_defaults_and_env_overrides():
         AI_DATABASE_URL="postgresql://u:p@localhost:5432/db",
         TUTOR_AI_SERVICE_TOKEN="a" * 32,
         TUTOR_AI_PROVIDER="mock",
+        TUTOR_OLLAMA_MAX_BATCH_SIZE=16,
         TUTOR_OLLAMA_CONNECT_TIMEOUT=25.0,
         TUTOR_AI_QUERY_CACHE_MAX_ENTRIES=5000,
         TUTOR_AI_DB_POOL_SIZE=20,
         TUTOR_AI_DB_MAX_OVERFLOW=30,
     )
+    assert custom_settings.ollama_max_batch_size == 16
     assert custom_settings.ollama_connect_timeout == 25.0
     assert custom_settings.query_cache_max_entries == 5000
     assert custom_settings.db_pool_size == 20
