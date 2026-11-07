@@ -31,6 +31,7 @@ class OllamaProvider:
         keep_alive: str = "30m",
         max_batch_size: int = DEFAULT_EMBED_BATCH,
         timeout_seconds: float = 180.0,
+        connect_timeout: float = 15.0,
         transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
         self.chat_model = chat_model
@@ -40,7 +41,7 @@ class OllamaProvider:
         self.max_batch_size = max(1, min(max_batch_size, 64))
         self._client = httpx.AsyncClient(
             base_url=base_url.rstrip("/"),
-            timeout=httpx.Timeout(timeout_seconds, connect=5.0),
+            timeout=httpx.Timeout(timeout_seconds, connect=connect_timeout),
             transport=transport,
         )
 
